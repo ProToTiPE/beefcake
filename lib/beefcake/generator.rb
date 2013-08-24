@@ -178,6 +178,14 @@ module Beefcake
 
       indent do
         puts "include Beefcake::Message"
+
+        Array(mt.nested_type).each do |nt|
+          puts "class #{nt.name}"
+          indent do
+            puts "include Beefcake::Message"
+          end
+          puts "end"
+        end
       end
       puts "end"
       puts
@@ -197,13 +205,11 @@ module Beefcake
         Array(mt.nested_type).each do |nt|
           message!(pkg, nt)
         end
-        puts
 
         ## Generate Fields
         Array(mt.field).each do |f|
           field!(pkg, f)
         end
-        puts
       end
 
       puts "end"
